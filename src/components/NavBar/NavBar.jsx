@@ -1,16 +1,15 @@
-import { Component } from "react";
+import React from "react";
 import { Nav, NavDropdown, FormControl, Navbar, Offcanvas, Button, Form  } from "react-bootstrap";
 import CartWidget from "./CartWidget/CartWidget";
 
 
-class NavBar extends Component {
-render(){
+function NavBar(props){
     return(
             <Navbar variant="dark" expand={false} className="px-2 mainColors" id="mainNav">
                 <div className="d-flex align-items-center justify-content-between w-100">
                     <Navbar.Toggle aria-controls="offcanvasNavbar"/>
                     <Navbar.Brand href="#" className="px-2">Play4Less</Navbar.Brand>
-                    <CartWidget />
+                    <CartWidget counter={props.counter}/>
                 </div>
             <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -45,8 +44,4 @@ render(){
             </Navbar.Offcanvas>
         </Navbar>
         );}
-
-    }
     export default NavBar;
-
-
