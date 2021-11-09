@@ -41,3 +41,32 @@
   align-items: center;
   justify-content: center;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.mainColorButton {
+  background-color: #3f1863;
+  border: none;
+}
+.mainColorButton:hover {
+  background-color: #260d3b;
+}
+.mainColorButton:focus {
+  background-color: #3f1863;
+  box-shadow: none;
+}
+
+.itemCounter input:focus {
+  box-shadow: none;
+  border-color: #3f1863;
+}

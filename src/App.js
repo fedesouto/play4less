@@ -7,8 +7,9 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 function App() {
   return (
     <div className="App">
-      <NavBar counter="2"/>
+      <NavBar counter="3"/>
       <ItemListContainer name="Federico" />
+        
     </div>
   );
 }
