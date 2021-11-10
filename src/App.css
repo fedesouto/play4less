@@ -70,3 +70,7 @@ input[type=number] {
   box-shadow: none;
   border-color: #3f1863;
 }
+
+.itemCounter {
+  text-align: center;
+}
