@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
-import ItemCount from './ItemCount/ItemCount';
-const photos = require('./photosPlaceholder.json');
+import React, { useState, useEffect } from 'react';
+import ItemList from './ItemList/ItemList';
+const itemsJSON = require('./products.json');
+
+const itemPromise = (mockURL) => {
+    return new Promise((resolve, reject) => {
+        resolve({
+            status: 'ok',
+            response: mockURL
+        })
+    })
+}
 
 function ItemListContainer ({name}) {
     
         const [stock, setStock] = useState(10);
         const [cartItems, setCartItems] = useState(0)
+        const [items, setItems] = useState([])
 
-        const handleAdd = (orderedItems) => {
+        const getItems = async () => {
+            const res = await itemPromise(itemsJSON);
+            const itemsData = await res.response;
+            setItems(itemsData);
+
+        }
+
+        /* ItemCount onAdd
+         const handleAdd = (orderedItems) => {
             if(orderedItems <= stock) {
                 setStock(stock - orderedItems)
                 setCartItems(cartItems + orderedItems)
@@ -18,19 +35,18 @@ function ItemListContainer ({name}) {
                 alert('No hay productos disponibles.')
             }
             else alert(`Solo hay ${stock} productos disponibles.`);
-        }
+        } */
+
+        useEffect( () => {
+          setTimeout(() => {
+              getItems();
+          }, 3000); }
+        ,)
 
         return ( 
             <div className="container-fluid pt-3 text-center">
                 <h2 className="display-5">{name ? `¡${name}, bienvenido  a Play4Less!` : "Inicia sesión para continuar."}</h2>
-                <div className="container-fluid flex-wrap catalogo mt-3">
-                    
-                        <div className="d-flex flex-column" key={photos[0].id}>
-                            <img src={photos[0].url} className="imgCatalogo" alt={photos[0].title}/>
-                            <strong>{photos[0].id}</strong>
-                            <ItemCount initial={1} stock={stock} onAdd={handleAdd}/>
-                        </div>
-                </div>
+                <ItemList items={items}/>
             </div>
          );
     }
