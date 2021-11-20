@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ItemList from './ItemList/ItemList';
 const itemsJSON = require('./products.json');
 
-const itemPromise = (mockURL) => {
+const itemsPromise = (mockURL) => {
     return new Promise((resolve, reject) => {
         resolve({
             status: 'ok',
@@ -18,24 +18,11 @@ function ItemListContainer ({name}) {
         const [items, setItems] = useState([])
 
         const getItems = async () => {
-            const res = await itemPromise(itemsJSON);
+            const res = await itemsPromise(itemsJSON);
             const itemsData = await res.response;
             setItems(itemsData);
 
         }
-
-        /* ItemCount onAdd
-         const handleAdd = (orderedItems) => {
-            if(orderedItems <= stock) {
-                setStock(stock - orderedItems)
-                setCartItems(cartItems + orderedItems)
-                alert(`Se agregaron ${orderedItems} productos al carrito.`) 
-                }
-            else if(stock === 0){
-                alert('No hay productos disponibles.')
-            }
-            else alert(`Solo hay ${stock} productos disponibles.`);
-        } */
 
         useEffect( () => {
           setTimeout(() => {
