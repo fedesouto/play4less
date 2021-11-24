@@ -6,7 +6,7 @@ import { BsFillCartFill } from "react-icons/bs"
          
         return(
             <div>
-                <NavLink href="#action"><BsFillCartFill style={{fontSize:25}}/></NavLink>
+                <NavLink><BsFillCartFill style={{fontSize:25}}/></NavLink>
                 <Badge bg="danger" id="cartCounter">{cartItemCounter}</Badge>
             </div>
         )

@@ -60,9 +60,13 @@ input[type=number] {
 .mainColorButton {
   background-color: #3f1863;
   border: none;
+  color: whitesmoke;
+  max-width: 200px;
+  margin: auto;
 }
 .mainColorButton:hover {
   background-color: #260d3b;
+  color:whitesmoke;
 }
 .mainColorButton:focus {
   background-color: #3f1863;

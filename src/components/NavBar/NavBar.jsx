@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Nav, NavDropdown, FormControl, Navbar, Offcanvas, Button, Form  } from "react-bootstrap";
 import CartWidget from "./CartWidget/CartWidget";
 import { BsXCircleFill } from 'react-icons/bs'
@@ -14,7 +15,7 @@ function NavBar(props){
             <Navbar variant="dark" expand={false} className="px-2 mainColors" id="mainNav">
                 <div className="d-flex align-items-center justify-content-between w-100">
                     <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={toggleShow}/>
-                    <Navbar.Brand href="#" className="px-2">Play4Less</Navbar.Brand>
+                    <Navbar.Brand className="px-2"><Link to="/" className="navbar-brand">Play4Less</Link></Navbar.Brand>
                     <CartWidget counter={props.counter}/>
                 </div>
             <Navbar.Offcanvas
@@ -32,13 +33,13 @@ function NavBar(props){
             <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3" >
                 <NavDropdown title="Catálogo" id="offcanvasNavbarDropdown">
-                    <NavDropdown.Item href="#action/3.1">Todos los Productos</NavDropdown.Item>
+                    <NavDropdown.Item>Todos los Productos</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.2">PC</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">PlayStation</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.4">Xbox</NavDropdown.Item>
+                    <NavDropdown.Item>PC</NavDropdown.Item>
+                    <NavDropdown.Item>PlayStation</NavDropdown.Item>
+                    <NavDropdown.Item>Xbox</NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href="#action2">Carrito</Nav.Link>
+                <Nav.Link><Link to="/" className="nav-link" onClick={handleClose}>Carrito</Link></Nav.Link>
                 </Nav>
                 <Form className="d-flex mt-2">
                 <FormControl

@@ -1,21 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import ItemDetail from './ItemDetail/ItemDetail';
 import { Skeleton } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const itemsJSON = require('../ItemListContainer/products.json');
 
-//ItemCount onAdd
-/* const handleAdd = (orderedItems) => {
-    if(orderedItems <= stock) {
-        setStock(stock - orderedItems)
-        setCartItems(cartItems + orderedItems)
-        alert(`Se agregaron ${orderedItems} productos al carrito.`) 
-        }
-    else if(stock === 0){
-        alert('No hay productos disponibles.')
-    }
-    else alert(`Solo hay ${stock} productos disponibles.`);
-} */
 
 const itemPromise = (mockURL) => {
     return new Promise((resolve, reject) => {
@@ -48,11 +37,14 @@ const ItemDetailContainer = ({itemId}) => {
     return (
         <div className="detail">
             {Object.keys(item).length !== 0?
-            <ItemDetail item={item} />
-            :<>
+            <Fragment>
+                <ItemDetail item={item} />
+                <button className="btn mainColorButton mt-5"><Link to="/" className="nav-link">Volver atras</Link></button>
+            </Fragment>
+            :<Fragment>
                 <Skeleton variant="text" height={100} width="100%" className="mt-5"/>
                 <Skeleton variant="rectangular" width="100%" height={300} />
-            </> 
+            </Fragment> 
             }
         </div>
     )
