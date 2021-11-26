@@ -1,4 +1,5 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
+import { CartProvider } from './contexts/CartContext';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
@@ -12,14 +13,15 @@ function App() {
   const [currentItem, setCurrentItem] = useState(0)
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar counter="3"/>
+      <CartProvider>
+        <BrowserRouter>
+          <NavBar counter="3" />
           <Routes>
-            <Route exact path="/" element={<ItemListContainer name="Federico" setCurrentItem={setCurrentItem}/>} />
+            <Route exact path="/" element={<ItemListContainer name="Federico" setCurrentItem={setCurrentItem} />} />
             <Route path="items/:itemID" element={<ItemDetailContainer itemId={currentItem} />} />
           </Routes>
-      </BrowserRouter>
-        
+        </BrowserRouter>
+      </CartProvider>
     </div>
   );
 }

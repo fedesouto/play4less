@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import ItemDetail from './ItemDetail/ItemDetail';
 import { Skeleton } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ const itemPromise = (mockURL) => {
     })
 }
 
-const ItemDetailContainer = ({itemId}) => {
+const ItemDetailContainer = ({ itemId }) => {
 
     const [item, setItem] = useState({})
 
@@ -30,21 +30,21 @@ const ItemDetailContainer = ({itemId}) => {
         setTimeout(() => {
             getItemDetail(itemId);
         }, 2000)
-    },[])
+    }, [])
 
 
 
     return (
         <div className="detail">
-            {Object.keys(item).length !== 0?
-            <Fragment>
-                <ItemDetail item={item} />
-                <button className="btn mainColorButton mt-5"><Link to="/" className="nav-link">Volver atras</Link></button>
-            </Fragment>
-            :<Fragment>
-                <Skeleton variant="text" height={100} width="100%" className="mt-5"/>
-                <Skeleton variant="rectangular" width="100%" height={300} />
-            </Fragment> 
+            {Object.keys(item).length !== 0 ?
+                <Fragment>
+                    <ItemDetail item={item} />
+                    <button className="btn mainColorButton mt-5"><Link to="/" className="nav-link">Volver atras</Link></button>
+                </Fragment>
+                : <Fragment>
+                    <Skeleton variant="text" height={100} width="100%" className="mt-5" />
+                    <Skeleton variant="rectangular" width="100%" height={300} />
+                </Fragment>
             }
         </div>
     )
