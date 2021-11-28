@@ -33,7 +33,7 @@ function NavBar(props){
             <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3" >
                 <NavDropdown title="Catálogo" id="offcanvasNavbarDropdown">
-                    <NavDropdown.Item>Todos los Productos</NavDropdown.Item>
+                    <NavDropdown.Item><Link to="/" className="nav-link-dark" onClick={handleClose}>Todos los Productos</Link></NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item>PC</NavDropdown.Item>
                     <NavDropdown.Item>PlayStation</NavDropdown.Item>
