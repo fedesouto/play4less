@@ -18,7 +18,10 @@ const ItemCount = ({ initial, stock, onAdd }) => {
             setSelectedItems(selectedItems - 1);
         }
     }
-
+    const handleAddButtonClick = (quantity) => {
+        onAdd(quantity);
+        setSelectedItems(1)
+    }
     return (
         <Container>
             <InputGroup className="itemCounter">
@@ -30,7 +33,7 @@ const ItemCount = ({ initial, stock, onAdd }) => {
                     <BsPlusLg />
                 </Button>
             </InputGroup>
-            <Button className="my-2 mainColorButton" onClick={() => onAdd(selectedItems)}>
+            <Button className="my-2 mainColorButton" onClick={() => handleAddButtonClick(selectedItems)}>
                 Agregar al carrito
             </Button>
         </Container>

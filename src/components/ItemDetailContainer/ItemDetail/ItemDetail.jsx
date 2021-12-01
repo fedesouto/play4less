@@ -15,7 +15,7 @@ const ItemDetail = ({ item }) => {
     const handleAdd = (quantity) => {
         if (quantity <= stock) {
             setStock(stock - quantity)
-            addItem(item)
+            addItem({item, quantity})
             console.log(cart)
             alert(`Se agregaron ${quantity} productos al carrito.`)
         }
@@ -33,7 +33,7 @@ const ItemDetail = ({ item }) => {
                 <div className="col bg-white d-flex justify-content-center border">
                     <img src={image} alt={title} className="img-fluid w-50" />
                 </div>
-                <div class="w-100 d-block d-md-none"></div>
+                <div className="w-100 d-block d-md-none"></div>
                 <div className="col text-center mt-3 d-flex flex-column justify-content-center">
                     <h5 className="mt-4">Descripción</h5>
                     <p className="lh-base">{description}</p>

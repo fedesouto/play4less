@@ -5,7 +5,9 @@ import { useCart } from '../../../contexts/CartContext';
     export default function CartWidget(){
     
         const {cart} = useCart();
-        const cartItemCounter = cart.length;
+        let cartItemCounter = 0;
+        cart.map(item => cartItemCounter += item.quantity);
+
         return(
             <div>
                 <NavLink><BsFillCartFill style={{fontSize:25}}/></NavLink>

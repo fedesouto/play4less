@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'
 import ItemDetail from './ItemDetail/ItemDetail';
 import { Skeleton } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -15,10 +16,13 @@ const itemPromise = (mockURL) => {
     })
 }
 
-const ItemDetailContainer = ({ itemId }) => {
-
+const ItemDetailContainer = () => {
     const [item, setItem] = useState({})
+    const {itemID} = useParams()
+    console.log(itemID)
+    
 
+    
     const getItemDetail = async (id) => {
         const res = await itemPromise(itemsJSON);
         const items = await res.response;
@@ -28,7 +32,7 @@ const ItemDetailContainer = ({ itemId }) => {
 
     useEffect(() => {
         setTimeout(() => {
-            getItemDetail(itemId);
+            getItemDetail(parseInt(itemID));
         }, 2000)
     }, [])
 
