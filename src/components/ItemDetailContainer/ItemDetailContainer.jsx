@@ -3,37 +3,25 @@ import { useParams } from 'react-router-dom'
 import ItemDetail from './ItemDetail/ItemDetail';
 import { Skeleton } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { getDoc, getFirestore, doc } from '@firebase/firestore';
 
-const itemsJSON = require('../ItemListContainer/products.json');
-
-
-const itemPromise = (mockURL) => {
-    return new Promise((resolve, reject) => {
-        resolve({
-            status: 'ok',
-            response: mockURL
-        })
-    })
-}
 
 const ItemDetailContainer = () => {
     const [item, setItem] = useState({})
     const {itemID} = useParams()
     console.log(itemID)
     
-
     
-    const getItemDetail = async (id) => {
-        const res = await itemPromise(itemsJSON);
-        const items = await res.response;
-        const itemDetail = await items.find(item => item.id === id);
-        setItem(itemDetail);
-    }
-
     useEffect(() => {
-        setTimeout(() => {
-            getItemDetail(parseInt(itemID));
-        }, 2000)
+        const db = getFirestore()
+        const docRef = doc(db, "items",itemID)
+        getDoc(docRef).then(snapshot =>{
+            if(snapshot.exists()){
+                setItem(snapshot.data())
+            }
+        }
+        )
+
     }, [])
 
 

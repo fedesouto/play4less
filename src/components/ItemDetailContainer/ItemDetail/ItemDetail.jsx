@@ -5,16 +5,16 @@ import { useCart } from '../../../contexts/CartContext';
 
 
 const ItemDetail = ({ item }) => {
-    const { id, title, price, description, category, image, rating } = item;
-    const { rate } = rating
+    const { title, price, description, category, image, rating, stock } = item;
+    
 
-    const [stock, setStock] = useState(10);
+    const [stockAmount, setStockAmount] = useState(stock);
     const { cart, addItem } = useCart();
 
     //ItemCount onAdd
     const handleAdd = (quantity) => {
         if (quantity <= stock) {
-            setStock(stock - quantity)
+            setStockAmount(stock - quantity)
             addItem({item, quantity})
             console.log(cart)
             alert(`Se agregaron ${quantity} productos al carrito.`)
@@ -38,8 +38,8 @@ const ItemDetail = ({ item }) => {
                     <h5 className="mt-4">Descripción</h5>
                     <p className="lh-base">{description}</p>
                     <h2>${price}</h2>
-                    <ItemCount initial={1} onAdd={handleAdd} stock={stock} />
-                    <RatingView ratingValue={rate} />
+                    <ItemCount initial={1} onAdd={handleAdd} stock={stockAmount} />
+                    <RatingView ratingValue={rating} />
                     <b className="text-muted text-capitalize">Categoría: {category}</b>
 
                 </div>

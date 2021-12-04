@@ -1,31 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import ItemList from './ItemList/ItemList';
-const itemsJSON = require('./products.json');
+import { getFirestore, getDocs, collection } from 'firebase/firestore';
 
-const itemsPromise = (mockURL) => {
-    return new Promise((resolve, reject) => {
-        resolve({
-            status: 'ok',
-            response: mockURL
-        })
-    })
-}
 
 function ItemListContainer({ name, setCurrentItem }) {
 
     const [items, setItems] = useState([])
 
-    const getItems = async () => {
-        const res = await itemsPromise(itemsJSON);
-        const itemsData = await res.response;
-        setItems(itemsData);
-
-    }
-
     useEffect(() => {
-        setTimeout(() => {
-            getItems();
-        }, 2000);
+        const db = getFirestore();
+        const itemCollection = collection(db, 'items')
+        getDocs(itemCollection).then(snapshot => {
+            if(snapshot) {
+                setItems(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})))
+            }
+        }, [])
     }
         ,)
 
