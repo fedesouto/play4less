@@ -39,7 +39,7 @@ function NavBar(props){
                     <NavDropdown.Item>PlayStation</NavDropdown.Item>
                     <NavDropdown.Item>Xbox</NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link><Link to="/" className="nav-link" onClick={handleClose}>Carrito</Link></Nav.Link>
+                <Nav.Link><Link to="/cart" className="nav-link" onClick={handleClose}>Carrito</Link></Nav.Link>
                 </Nav>
                 <Form className="d-flex mt-2">
                 <FormControl

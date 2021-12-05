@@ -1,5 +1,6 @@
 import { NavLink, Badge } from 'react-bootstrap';
 import { BsFillCartFill } from "react-icons/bs"
+import { Link } from 'react-router-dom';
 import { useCart } from '../../../contexts/CartContext';
 
     export default function CartWidget(){
@@ -10,7 +11,7 @@ import { useCart } from '../../../contexts/CartContext';
 
         return(
             <div>
-                <NavLink><BsFillCartFill style={{fontSize:25}}/></NavLink>
+                <NavLink><Link to="/cart"><BsFillCartFill style={{fontSize:25, color: "whitesmoke"}}/></Link></NavLink>
                 <Badge bg="danger" id="cartCounter">{cartItemCounter}</Badge>
             </div>
         )

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ItemList from './ItemList/ItemList';
 import { getFirestore, getDocs, collection } from 'firebase/firestore';
+import { getAllProducts } from '../../config/firebase/firestoreService';
 
 
 function ItemListContainer({ name, setCurrentItem }) {
@@ -8,15 +9,9 @@ function ItemListContainer({ name, setCurrentItem }) {
     const [items, setItems] = useState([])
 
     useEffect(() => {
-        const db = getFirestore();
-        const itemCollection = collection(db, 'items')
-        getDocs(itemCollection).then(snapshot => {
-            if(snapshot) {
-                setItems(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})))
-            }
+        getAllProducts(setItems)
         }, [])
-    }
-        ,)
+    
 
     return (
         <div className="container-fluid pt-3 text-center">

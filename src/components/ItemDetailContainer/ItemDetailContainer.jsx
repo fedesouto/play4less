@@ -3,24 +3,17 @@ import { useParams } from 'react-router-dom'
 import ItemDetail from './ItemDetail/ItemDetail';
 import { Skeleton } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { getDoc, getFirestore, doc } from '@firebase/firestore';
-
+import { getSingleProduct } from '../../config/firebase/firestoreService';
 
 const ItemDetailContainer = () => {
     const [item, setItem] = useState({})
-    const {itemID} = useParams()
-    console.log(itemID)
-    
-    
+    const { itemID } = useParams()
+
+
+
     useEffect(() => {
-        const db = getFirestore()
-        const docRef = doc(db, "items",itemID)
-        getDoc(docRef).then(snapshot =>{
-            if(snapshot.exists()){
-                setItem(snapshot.data())
-            }
-        }
-        )
+
+        getSingleProduct(itemID, setItem);
 
     }, [])
 
