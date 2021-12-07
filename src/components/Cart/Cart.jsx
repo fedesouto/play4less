@@ -8,9 +8,9 @@ export const CartComponent = () => {
     const { cart, calculateTotal, deleteItem } = useCart();
     const [total, setTotal] = useState(calculateTotal)
 
-    const handleDelete = (itemId, price) => {
+    const handleDelete = (itemId, price, quantity) => {
         deleteItem(itemId);
-        setTotal(total - price);
+        setTotal(total - (price * quantity));
     }
 
     if (cart.length === 0) {
@@ -38,7 +38,8 @@ export const CartComponent = () => {
                     </thead>
                     <tbody>
                         {cart.map(product => {
-                            const { id, title, image, price } = product.item;
+                            const { quantity, item} = product;
+                            const { id, title, image, price } = item;
 
 
                             return (
@@ -47,14 +48,14 @@ export const CartComponent = () => {
                                     <td>{title}</td>
                                     <td>{product.quantity}</td>
                                     <td>$ {price}</td>
-                                    <td><BsXCircleFill className="text-danger removeButton" onClick={() => { handleDelete(id, price) }} /></td>
+                                    <td><BsXCircleFill className="text-danger removeButton" onClick={() => { handleDelete(id, price, quantity) }} /></td>
                                 </tr>
                             )
                         })}
 
                     </tbody>
                 </table>
-                <p>Total: {total}</p>
+                <p>Total: $ {total}</p>
                 <button className="btn btn-success">Finalizar compra</button>
             </div>
         )
