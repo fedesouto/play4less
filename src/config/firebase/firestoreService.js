@@ -1,10 +1,11 @@
-import { getDoc, getDocs, doc, collection, getFirestore } from '@firebase/firestore';
+import { getDoc, getDocs, doc, collection, getFirestore, addDoc } from '@firebase/firestore';
 import { app } from './firebase';
 
 const db = getFirestore(app)
 
-
 const itemCollection = collection(db, 'items')
+
+const orderCollection = collection(db, 'orders')
 
 //get all products
 export const getAllProducts = (_callback) => {
@@ -29,3 +30,9 @@ export const getSingleProduct = (productId, _callback) => {
     })
 }
 
+//add order
+
+export const addOrder = (data, _callback) => {
+    addDoc(orderCollection, data)
+    .then(({id}) => _callback(id))
+}
