@@ -19,8 +19,9 @@ function App() {
           <NavBar counter="3" />
           <Routes>
             <Route exact path="/" element={<ItemListContainer name="Federico" setCurrentItem={setCurrentItem} />} />
+            <Route exact path="/categories/:categoryID" element={<ItemListContainer name="Federico" setCurrentItem={setCurrentItem} />} />
             <Route path="items/:itemID" element={<ItemDetailContainer itemId={currentItem} />} />
-            <Route path="cart" element={<CartComponent/>}/>
+            <Route path="cart" element={<CartComponent />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>

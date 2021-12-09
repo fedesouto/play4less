@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import ItemList from './ItemList/ItemList';
 import { getFirestore, getDocs, collection } from 'firebase/firestore';
 import { getAllProducts } from '../../config/firebase/firestoreService';
@@ -6,12 +7,13 @@ import { getAllProducts } from '../../config/firebase/firestoreService';
 
 function ItemListContainer({ name, setCurrentItem }) {
 
+    const { categoryID } = useParams();
     const [items, setItems] = useState([])
 
     useEffect(() => {
-        getAllProducts(setItems)
-        }, [])
-    
+        getAllProducts(setItems, categoryID)
+    }, [categoryID])
+
 
     return (
         <div className="container-fluid pt-3 text-center">

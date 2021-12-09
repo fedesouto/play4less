@@ -8,18 +8,18 @@ const style = {
     margin: '1rem',
 }
 
-function Item ({item, setCurrentItem}) {
-    const {id, image, title, price} = item;
-    return(
+function Item({ item, setCurrentItem }) {
+    const { id, image, title, price } = item;
+    return (
         <Card style={style}>
-        <Card.Img variant="top" src={image} style={{width: 150, maxHeight: 'auto', alignSelf: 'center', margin: 'auto'}}/>
-        <Card.Body style={{flex: 0}}>
-            <Card.Title>{title}</Card.Title>
-            <Card.Text>
-            $ {price}
-            </Card.Text>
-            <Button className="mainColorButton"><Link to={`items/${id}`} className="nav-link" onClick={() => setCurrentItem(id)}>Ver detalle</Link></Button>
-        </Card.Body>
+            <Card.Img variant="top" src={image} style={{ width: 150, maxHeight: 'auto', alignSelf: 'center', margin: 'auto' }} />
+            <Card.Body style={{ flex: 0 }}>
+                <Card.Title>{title}</Card.Title>
+                <Card.Text>
+                    $ {price}
+                </Card.Text>
+                <Button className="mainColorButton"><Link to={`/items/${id}`} className="nav-link" onClick={() => setCurrentItem(id)}>Ver detalle</Link></Button>
+            </Card.Body>
         </Card>
     )
 }

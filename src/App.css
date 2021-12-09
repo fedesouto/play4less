@@ -1,4 +1,4 @@
-body{
+body {
   background-color: #f8f9fa;
 }
 .mainColors {
@@ -11,6 +11,8 @@ body{
 .nav-link-dark {
   color: #260d3b;
   text-decoration: none;
+  width: 100%;
+  display: inline-block;
 }
 .nav-link:hover {
   color: #7c8baf;
@@ -25,14 +27,14 @@ body{
 
 #cartCounter {
   position: absolute;
-  top:10px;
-  right:10px;
+  top: 10px;
+  right: 10px;
   border-radius: 50%;
   padding: 0.25em 0.4em;
 }
 
 #mainNav {
-  background-image: linear-gradient( #3f1863, #260d3b);
+  background-image: linear-gradient(#3f1863, #260d3b);
   box-shadow: 0px 2px 15px grey;
 }
 .card {
@@ -59,7 +61,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -72,7 +74,7 @@ input[type=number] {
 }
 .mainColorButton:hover {
   background-color: #260d3b;
-  color:whitesmoke;
+  color: whitesmoke;
 }
 .mainColorButton:focus {
   background-color: #3f1863;
@@ -108,15 +110,15 @@ input[type=number] {
   margin: auto;
 }
 
-.cart{
-  margin:auto;
+.cart {
+  margin: auto;
   margin-top: 3em;
   max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.checkout{
+.checkout {
   display: flex;
   flex-direction: column;
   width: 95%;
@@ -132,5 +134,5 @@ input[type=number] {
 }
 
 .removeButton {
-  cursor:pointer;
+  cursor: pointer;
 }

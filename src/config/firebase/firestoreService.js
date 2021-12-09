@@ -1,4 +1,4 @@
-import { getDoc, getDocs, doc, collection, getFirestore, addDoc } from '@firebase/firestore';
+import { getDoc, getDocs, doc, collection, getFirestore, addDoc, query, where } from '@firebase/firestore';
 import { app } from './firebase';
 
 const db = getFirestore(app)
@@ -7,13 +7,24 @@ const itemCollection = collection(db, 'items')
 
 const orderCollection = collection(db, 'orders')
 
-//get all products
-export const getAllProducts = (_callback) => {
-    getDocs(itemCollection).then(snapshot => {
-        if (snapshot) {
-            _callback(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
-        }
-    })
+//get product list
+export const getAllProducts = (_callback, category) => {
+    if (category) {
+        const q = query(collection(db, 'items'), where("category", '==', category))
+        getDocs(q).then(snapshot => {
+            if (snapshot) {
+                _callback(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
+            }
+        })
+    }
+
+    else {
+        getDocs(itemCollection).then(snapshot => {
+            if (snapshot) {
+                _callback(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
+            }
+        })
+    }
 }
 
 
@@ -34,5 +45,5 @@ export const getSingleProduct = (productId, _callback) => {
 
 export const addOrder = (data, _callback) => {
     addDoc(orderCollection, data)
-    .then(({id}) => _callback(id))
+        .then(({ id }) => _callback(id))
 }
