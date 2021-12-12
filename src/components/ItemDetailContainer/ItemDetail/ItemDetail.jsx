@@ -1,26 +1,34 @@
-import React, { Component, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import ItemCount from '../ItemCount/ItemCount';
 import { RatingView } from 'react-simple-star-rating'
 import { useCart } from '../../../contexts/CartContext';
+import { useEffect } from 'react';
 
 
 const ItemDetail = ({ item }) => {
     const { title, price, description, category, image, rating, stock } = item;
+    const {itemID} = useParams()
+
+    const { cart, addItem } = useCart();
+    const [stockAmount, setStockAmount] = useState(null);
+    const [added, setAdded] = useState(false)
     
 
-    const [stockAmount, setStockAmount] = useState(stock);
-    const [added, setAdded] = useState(false)
-    const { cart, addItem } = useCart();
+    useEffect(() => {
+        const exists = cart.findIndex(element => element.item.id === itemID);
+        exists > -1 ?
+        setStockAmount(stock - cart[exists].quantity) :
+        setStockAmount(stock);
+        
+         }
+    , [itemID])
     
 
     //ItemCount onAdd
     const handleAdd = (quantity) => {
-        if (quantity <= stock) {
-            setStockAmount(stock - quantity)
+        if (quantity <= stockAmount) {
             addItem({item, quantity})
-            console.log(cart)
-            alert(`Se agregaron ${quantity} productos al carrito.`)
             setAdded(!added)
         }
         else if (stock === 0) {
@@ -42,6 +50,7 @@ const ItemDetail = ({ item }) => {
                     <h5 className="mt-4">Descripción</h5>
                     <p className="lh-base">{description}</p>
                     <h2>${price}</h2>
+                    {stockAmount === 0 && <b className='text-danger mb-2'>Fuera de stock</b>}
                     {!added ? <ItemCount initial={1} onAdd={handleAdd} stock={stockAmount} />
                     : <Link to="/cart"><button className="btn btn-success my-3">Terminar compra</button></Link>}
                     <RatingView ratingValue={rating} />

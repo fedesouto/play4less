@@ -12,7 +12,7 @@ function Item({ item, setCurrentItem }) {
     const { id, image, title, price } = item;
     return (
         <Card style={style}>
-            <Card.Img variant="top" src={image} style={{ width: 150, maxHeight: 'auto', alignSelf: 'center', margin: 'auto' }} />
+            <Card.Img variant="top" src={image} style={{ width: 150, maxHeight: 'auto', alignSelf: 'center', margin: 'auto' }} alt={title} />
             <Card.Body style={{ flex: 0 }}>
                 <Card.Title>{title}</Card.Title>
                 <Card.Text>

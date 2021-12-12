@@ -28,12 +28,12 @@ const ItemCount = ({ initial, stock, onAdd }) => {
                 <Button className="mainColorButton" onClick={handleDash}>
                     <BsDashLg />
                 </Button>
-                <FormControl className="itemCounter" value={selectedItems} />
+                <FormControl className="itemCounter" value={selectedItems} onChange={(e) => setSelectedItems(e.target.value)} />
                 <Button className="mainColorButton" onClick={handlePlus}>
                     <BsPlusLg />
                 </Button>
             </InputGroup>
-            <Button className="my-2 mainColorButton" onClick={() => handleAddButtonClick(selectedItems)}>
+            <Button className="my-2 mainColorButton" disabled={!(stock !== 0)} onClick={() => handleAddButtonClick(selectedItems)}>
                 Agregar al carrito
             </Button>
         </Container>

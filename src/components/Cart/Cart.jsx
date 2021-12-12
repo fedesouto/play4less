@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../../contexts/CartContext';
 import { BsXCircleFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
@@ -6,14 +6,22 @@ import { addOrder } from '../../config/firebase/firestoreService';
 
 export const CartComponent = () => {
 
-    const { cart, calculateTotal, deleteItem } = useCart();
-    const [total, setTotal] = useState(calculateTotal)
+    const { cart, deleteItem } = useCart();
+    const [total, setTotal] = useState(0)
     const [orderId, setOrderId] = useState(null);
 
     const handleDelete = (itemId, price, quantity) => {
         deleteItem(itemId);
         setTotal(total - (price * quantity));
     }
+
+
+    const calculateTotal = () => {
+        if (cart.length > 0) {
+            setTotal(cart.reduce((acumulador, item) => acumulador + item.quantity * item.item.price, 0))
+        }
+    }
+
 
     const onSubmit = () => {
         const name = document.querySelector('#buyer-name').value;
@@ -27,8 +35,13 @@ export const CartComponent = () => {
             total: total
         }
         addOrder(order, setOrderId);
-
     }
+
+    useEffect(() => {
+        calculateTotal()
+    }, [cart])
+
+
     if (cart.length === 0) {
         return (
             <div className="cart">
@@ -68,7 +81,7 @@ export const CartComponent = () => {
 
                             return (
                                 <tr key={id} className="align-middle">
-                                    <th scope="row"><img src={image} className="cartItem-image" /></th>
+                                    <th scope="row"><img src={image} className="cartItem-image" alt={title} /></th>
                                     <td>{title}</td>
                                     <td>{product.quantity}</td>
                                     <td>$ {price}</td>

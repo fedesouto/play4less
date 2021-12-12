@@ -15,7 +15,7 @@ const ItemDetailContainer = () => {
 
         getSingleProduct(itemID, setItem);
 
-    }, [])
+    }, [itemID])
 
 
 
