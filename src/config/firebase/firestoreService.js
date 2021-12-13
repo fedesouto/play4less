@@ -1,4 +1,4 @@
-import { getDoc, getDocs, doc, collection, getFirestore, addDoc, query, where } from '@firebase/firestore';
+import { getDoc, getDocs, doc, collection, getFirestore, addDoc, query, where, writeBatch } from '@firebase/firestore';
 import { app } from './firebase';
 
 const db = getFirestore(app)
@@ -46,4 +46,20 @@ export const getSingleProduct = (productId, _callback) => {
 export const addOrder = (data, _callback) => {
     addDoc(orderCollection, data)
         .then(({ id }) => _callback(id))
+}
+
+//update stock after an order is created
+
+export const updateStock = async (data) => {
+    const batch = writeBatch(db);
+    const { items } = data;
+
+    items.forEach(item => {
+        const newStock = item.item.stock - item.quantity;
+        const itemDoc = doc(db, "items", item.item.id);
+        batch.update(itemDoc, { stock: newStock })
+    })
+
+    await batch.commit();
+
 }
