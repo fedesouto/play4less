@@ -15,9 +15,8 @@ const ItemDetail = ({ item }) => {
 
   useEffect(() => {
     const exists = cart.findIndex((element) => element.item.id === itemID);
-    exists > -1
-      ? setStockAmount(stock - cart[exists].quantity)
-      : setStockAmount(stock);
+
+    setStockAmount(stock - (cart[exists]?.quantity || 0));
   }, [itemID]);
 
   //ItemCount onAdd
@@ -42,9 +41,7 @@ const ItemDetail = ({ item }) => {
           <h5 className="mt-4">Descripción</h5>
           <p className="lh-base">{description}</p>
           <h2>${price}</h2>
-          {stockAmount === 0 && (
-            <b className="text-danger mb-2">Fuera de stock</b>
-          )}
+          {!stockAmount && <b className="text-danger mb-2">Fuera de stock</b>}
           {!added ? (
             <ItemCount initial={1} onAdd={handleAdd} stock={stockAmount} />
           ) : (

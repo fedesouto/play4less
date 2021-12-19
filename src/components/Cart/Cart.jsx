@@ -9,18 +9,25 @@ const inputs = [
     label: "Nombre",
     name: "name",
     id: "buyer-name",
+    type: "text",
   },
   {
     label: "E-mail",
     name: "email",
     id: "buyer-email",
+    type: "email",
   },
   {
     label: "Teléfono",
     name: "phone",
     id: "buyer-phone",
+    type: "tel",
   },
 ];
+const nameRegEx = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/g;
+const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+const phoneRexEx = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
+
 export const CartComponent = () => {
   const { cart, deleteItem, emptyCart } = useCart();
   const [total, setTotal] = useState(0);
@@ -30,6 +37,7 @@ export const CartComponent = () => {
     email: "",
     phone: "",
   });
+  const [validFormData, setValidFormData] = useState(true);
 
   const handleInputChange = (event) => {
     setBuyer({ ...buyer, [event.target.name]: event.target.value });
@@ -52,15 +60,24 @@ export const CartComponent = () => {
   };
 
   const onSubmit = async () => {
-    const order = {
-      buyer: buyer,
-      items: cart,
-      date: Date.now(),
-      total: total,
-    };
-    addOrder(order, setOrderId);
-    await updateStock(order);
-    emptyCart();
+    if (
+      !nameRegEx.test(buyer.name) ||
+      !emailRegEx.test(buyer.email) ||
+      !phoneRexEx.test(buyer.phone)
+    ) {
+      setValidFormData(false);
+    } else {
+      setValidFormData(true);
+      const order = {
+        buyer: buyer,
+        items: cart,
+        date: Date.now(),
+        total: total,
+      };
+      addOrder(order, setOrderId);
+      await updateStock(order);
+      emptyCart();
+    }
   };
 
   useEffect(() => {
@@ -139,7 +156,7 @@ export const CartComponent = () => {
         <div className="checkout">
           <h3 className="text-center">Finalizá tu compra</h3>
           <form>
-            {inputs.map(({ label, name, id }) => {
+            {inputs.map(({ label, name, id, type }) => {
               return (
                 <div className="row g-3 mt-2 align-items-center">
                   <div className="col-3">
@@ -154,6 +171,7 @@ export const CartComponent = () => {
                       id={id}
                       name={name}
                       value={buyer[name]}
+                      type={type}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -161,6 +179,9 @@ export const CartComponent = () => {
               );
             })}
           </form>
+          {!validFormData && (
+            <b className="text-danger">Complete los datos correctamente.</b>
+          )}
           <button
             className="btn btn-success mt-4"
             onClick={onSubmit}
